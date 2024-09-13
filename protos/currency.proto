@@ -1,0 +1,27 @@
+syntax="proto3";
+
+option go_package = "./protos/currency";
+
+
+service Currency {
+    rpc GetRate (RateRequest) returns (RateResponse);
+    rpc SubscribeRates (stream RateRequest) returns (stream RateResponse);
+
+}
+
+message RateRequest {
+    Currencies Base =1;
+    Currencies Destination=2;
+}
+message RateResponse {
+    double Rate=1;
+    Currencies Base =2;
+    Currencies Destination=3;
+}
+
+
+enum Currencies{
+    USD=0;
+    JPY=1;
+    GBP=2;
+}
